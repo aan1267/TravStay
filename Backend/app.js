@@ -18,20 +18,20 @@ async function main(){
     await mongoose.connect(Mongo_Url)
 }
 
-// app.get("/",(req,res)=>{
-//     res.send("hello")
-// })
-// const categoriesData = [
+app.get("/",(req,res)=>{
+    res.send("hello")
+})
+// const categories = [
 //     {
 //       name:"popular",
 //       cities: [
 //         { name: "Canmore", description: "Chalet rentals" },
-//         { name: "Benalmádena", description: "Beach house rentals",},
+//         { name: "Benalmádena", description: "Beach house rentals"},
 //         { name: " Marbella", description: "Beachfront rentals" },
 //         { name: " Prescott", description: " Cottage rentals"},
 //         { name: "Scoddal", description: "Pet-friendly rentals"},
 //         { name: "Mijas", description: "Flat rentals"},
-//       ],
+//       ]
 //     },
 //     {
 //       name:"arts and culture",
@@ -42,7 +42,7 @@ async function main(){
 //         { name: "Prague", description: "Holiday rentals" },
 //         { name: "San Francisco", description: "Beach house rentals" },
 //         { name: "Dublin", description: "Cottage rentals" },
-//       ],
+//       ]
 //     },
 //     {
 //         name:"outdoors",
@@ -53,7 +53,7 @@ async function main(){
 //             { name: " Prescott", description: " Cottage rentals"},
 //             { name: "Scoddal", description: "Pet-friendly rentals"},
 //             { name: "Mijas", description: "Flat rentals"},
-//         ],
+//         ]
 //     },
 //     {
 //         name:"mountains",
@@ -64,7 +64,7 @@ async function main(){
 //           { name: "Prescott", description: "Cottage rentals"},
 //           { name: "Bruny Island", description: "flat rentals"},
 //           { name: "Scoddal", description: "Pet friendly"},
-//         ],
+//         ]
 //       },
 //       {
 //         name:"beach",
@@ -75,19 +75,18 @@ async function main(){
 //         { name: "Prague", description: "Holiday rentals" },
 //         { name: "San Francisco", description: "Beach house rentals" },
 //         { name: "Dublin", description: "Cottage rentals" },
-//         ],
-//       },
+//         ]
+//     }
 //   ];
 
 app.get("/insert",async(req,res)=>{
-    await Category.insertMany(categoriesData)
+    await Category.insertMany(categories)
     console.log("data category")
 })
 
 app.get("/listing",async(req,res)=>{
     let listings=await Listing.find({})
     res.status(202).json({listings})
-    // console.log("Listings retrieved:", JSON.stringify(data,null,2))
     // res.send("done!")
 })
 
