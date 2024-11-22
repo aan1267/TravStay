@@ -1,0 +1,47 @@
+.login-container{
+    margin-top:20px;
+    width:100%;
+    display:flex;
+    align-items: center;
+    padding:100px;
+}
+
+h5{
+    text-align: center;
+}
+
+p a{
+    text-decoration: underline;
+    font-weight: bold;
+    color:black
+}
+
+.login-box{
+    max-width:500px;
+    border:2px solid rgba(83, 177, 235, 0.922);
+    border-radius:20px;
+    padding:90px 70px;
+    margin:0 auto;
+}
+
+form{
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+form button{
+    background-color: rgba(83, 177, 235, 0.922);
+    border:none;
+    border-radius: 50px;
+    width:100%;
+    padding:5px;
+    color:white;
+}
+
+#email,#pass{
+    width:100%;
+    box-sizing: border-box;
+    padding:5px;
+    outline: none;
+}
