@@ -8,6 +8,11 @@
     justify-content:space-between;
     padding-inline:90px;
     border-bottom:  1px solid #ccc; 
+    background-color:#ffff;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000
 }
 
 .header{
