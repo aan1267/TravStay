@@ -10,7 +10,7 @@ function Signup() {
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
   };
 
   return (
