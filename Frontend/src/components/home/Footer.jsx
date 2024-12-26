@@ -1,8 +1,7 @@
 import React, { useState,useEffect,useCallback} from "react"
 import axios from "axios"
 import "../../style/Footer.css"
-
-//footer me nav search ko hide kiya 
+ 
 export default function Footer() {
   const [categories,setCategories]=useState([])
   const [activesection,setActiveSection]=useState("popular")
