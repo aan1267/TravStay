@@ -1,9 +1,8 @@
-import React, { useState,useEffect,useCallback } from "react"
+import React, { useState,useEffect,useCallback} from "react"
 import axios from "axios"
 import "../../style/Footer.css"
-import {Link} from "react-router-dom"
 
-
+//footer me nav search ko hide kiya 
 export default function Footer() {
   const [categories,setCategories]=useState([])
   const [activesection,setActiveSection]=useState("popular")
@@ -24,45 +23,46 @@ export default function Footer() {
   fetchcategories()
  },[])
   
-const rendercontent= useCallback(()=>{
+const rendercontent=useCallback(()=>{
   const categoryData= categories.find(category => category.name.trim().toLowerCase() === activesection.trim().toLowerCase())
-  console.log(categoryData);
-  if(!categoryData){
-        console.log("none");
-      }
-
+  // console.log(categoryData);
+  // if(!categoryData){
+  //       console.log("none");
+  //     }
+   if(categoryData){
+    const cities=categoryData.cities
       return(
-        <div class="content">
-         {categoryData.cities.map((city,index)=>(
-             <p key={index}>{city}<br/>
-             </p>
-          ))}
+        <div>
+         {cities.map((city,index)=>(
+                <p key={index}>{city.name}<br/>
+                {city.description}</p>
+          )
+        )}
         </div>
       )
+    }
  },[categories,activesection])
-  
 
-  return (
+
+return (
     <footer>
       <div className="footer-container">
         <div className="footer-section">
           <h2>Inspiration for future getaways</h2>
-          <div className="additional-cotent">
-          {categories.map((category) => (
-              <Link to="/" key={category._id} onClick={()=>handleClick(category.name)}>
+          <div className="additional-content">
+          {
+          categories.map((category) => (
+              <button key={category._id} onClick={()=>handleClick(category.name)}>
                 <h5>{category.name}</h5>
-              </Link>)
-            )}
-          </div>
-          </div>
+              </button>))
+          }
+            </div>
+        </div>
       </div>
-
-      <div>
+      <div class="content">
          {rendercontent()}
       </div>
-
       <div>
-        <hr />
         <div className="footer-sec-1">
           <div className="footer-sec">
             <p>English (IN)</p>
@@ -76,5 +76,12 @@ const rendercontent= useCallback(()=>{
         </div>
       </div>
     </footer>
-  );
+  )
 }
+
+
+
+
+
+
+
