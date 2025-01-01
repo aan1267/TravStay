@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/listing",listingRoutes)
 app.use("/categories",categoryRoutes)
 app.use("/jwt",userRoute)
-app.use("/api",imageRouter)
+app.use("/booking",bookingRoute)
 
 
 
