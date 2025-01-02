@@ -10,12 +10,13 @@ const cookieParser=require("cookie-parser")
 const listingRoutes=require("./routes/listingRoutes.js")
 const categoryRoutes = require("./routes/categoriesRoutes.js")
 const userRoute = require("./routes/userRoutes.js")
-const imageRouter=require("./routes/imageRoute.js")
+const imageRoute = require("./routes/imageRoute.js")
+const bookingsRoute=require("./routes/bookingsRoute.js")
 
 
 //middleware
 app.use(cors({
-    origin:'*',  
+    origin:"http://localhost:5173", 
   credentials: true,  
 }))
 app.use(express.json())
@@ -27,7 +28,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/listing",listingRoutes)
 app.use("/categories",categoryRoutes)
 app.use("/jwt",userRoute)
-app.use("/booking",bookingRoute)
+app.use("/api",imageRoute)
+app.use("/bookings",bookingsRoute)
 
 
 
