@@ -9,11 +9,15 @@ const listingSchema=new Schema({
     description:String,
     images:[{
         url:{type:String,required:true},
-        caption:{type:String},
+       caption:String,
     }],
     price:String,
     location:String,
     country:String,
+    owner:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+    }
 })
 
 const Listing=mongoose.model("Listing",listingSchema)
