@@ -2,17 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import Login from "./components/Login.jsx";
-import Signup from "./components/Signup.jsx";
-import Listing from "./components/Listing.jsx";
-import AllImages from "./components/AllImages.jsx";
-import LayoutComponent from "./components/home/LayoutComponent.jsx";
-import Hero from "./components/home/Hero.jsx";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import Listing from "./pages/Listing.jsx";
+// import AllImages from "./components/AllImages.jsx";
+import LayoutComponent from "./layout/LayoutComponent.jsx";
+import Hero from "./components/Hero.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
-import ProfilePage from "./components/ProfilePage.jsx";
-import PlacesPage from "./components/PlacesPage.jsx";
-import PlacesForm from "./components/PlacesForm.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import PlacesPage from "./pages/PlacesPage.jsx";
+import PlacesForm from "./pages/PlacesForm.jsx";
 import ProtectedRoute from "./context/ProtectedRoute.jsx";
+import Booking from "./pages/BookingPage.jsx";
+import BookingsPage from "./pages/BookingsPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,36 +41,41 @@ const router = createBrowserRouter([
             element: <Signup />,
           },
           {
-            path: "/account",
-            element: <ProfilePage />,
-          },
-          {
-            path: "/account/places",
-            element: <PlacesPage />,
-          },
-          {
-            path: "/account/places/new",
-            element: <PlacesForm />,
-          },
-          {
-            path: "/account/places/:id",
-            element: <PlacesForm />,
-          },
-          {
-            path: "/places/:id",
-            element: <PlacesForm />,
-          },
-          {
-            path:"/account/booking",
-            element:<ProfilePage/>
+            element:<ProtectedRoute/>,
+            children:[
+              {
+                path: "/account",
+                element: <ProfilePage />,
+              },
+              {
+                path: "/account/places",
+                element: <PlacesPage />,
+              },
+              {
+                path: "/account/places/new",
+                element: <PlacesForm />,
+              },
+              {
+                path: "/account/places/:id",
+                element: <PlacesForm />,
+              },
+              {
+                path: "/places/:id",
+                element: <PlacesForm />,
+              },
+              {
+                path: "/account/bookings",
+                element: <BookingsPage />,
+              },
+              {
+                path: "/account/bookings/:id",
+                element: <Booking />,
+              },
+            ]
           }
         ],
       },
     ],
-  },
-  {
-    path: "/listing/:id/all-photos",
-    element: <AllImages />,
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
