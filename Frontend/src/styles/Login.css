@@ -1,0 +1,76 @@
+.login-container{
+    margin-top:70px; 
+    width:100%;
+}
+
+.error{
+    color: #f44336;
+}
+
+p a{
+    text-decoration: underline;
+    font-weight: bold;
+    color:black
+}
+
+.login-box{
+    max-width:500px;
+    /* border:2px solid #53b1eb; */
+    border-radius:20px;
+    /* padding:90px 70px;  */
+     
+} 
+
+.login-form{
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+    width:100%
+}
+
+.login-btn{
+    background-color: #53b1eb;
+    border:none;
+    border-radius: 50px;
+    width:100%;
+    padding:5px;
+    color:white;
+}
+
+
+#password,#email,#username{
+    width:100%;
+    box-sizing: border-box;
+    padding:5px;
+}
+
+
+#password,#email,#username:focus{
+    outline:none;
+} 
+
+.Toastify__toast-container {
+    position: fixed !important;
+    top: 50% !important; /* vertically centered */
+    right: 0 !important; 
+    transform: translateY(-50%);
+    z-index: 9999 !important;  
+}
+
+
+
+@media (min-width:678px) and (max-width:1728px){
+    .login-container{
+        padding:100px;
+    }
+    .login-box{
+         border:2px solid #53b1eb; 
+         padding:90px 70px;  
+    }
+}
+@media (min-width:375px) and (max-width:678px){
+   .login-box{
+        border:none !important;
+        padding:0 !important;
+    }
+}

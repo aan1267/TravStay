@@ -1,0 +1,152 @@
+.price{
+    box-shadow: 0px 2px 0px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width:fit-content;
+    padding:10px;
+    font-size:1rem;
+}
+.images-container img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:10px;
+} 
+
+ .images-container{
+    position:relative;
+    width:80vw;
+    height:100vh;
+    /* border:2px solid black; */
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows:repeat(2,1fr); 
+    grid-gap:0.8rem;
+    overflow:hidden;
+    padding-block:20px;
+} 
+ 
+.full-image{
+    grid-column :1/3;
+    grid-row:1/3;
+} 
+ 
+.half-image{
+  grid-column: span 1;
+  grid-row:span 1;
+}
+
+.hide-image{
+    display:none;
+}
+
+.showmore-photos{
+    position:absolute;
+    right:0;
+    bottom:5%;
+    border-radius: 10px;
+    outline: none;
+    padding:6px;
+}
+.showmore-photos:hover,.showmore-photos:active{
+  font-weight: 600;
+  outline:none;
+}
+
+span{
+    text-align: center;
+}
+
+.photos{
+    padding:30px 35px 10px 35px;
+}
+.photos img{
+    width:100%;
+    object-fit:cover;
+}
+.close-photo-btn{
+    position:fixed;
+    display:flex;
+    gap:10px;
+    align-items: center;
+    justify-content: center;
+    top:10%;
+    right:10%;
+    border:none;
+    padding:10px;
+    border-radius:50px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1)
+}
+
+.close-photo-btn:hover,.close-photo-btn:focus{
+    outline: none;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+} 
+
+
+ @media (min-width:763px)and (max-width:1200px){
+    .title{
+        font-size:1.4rem;
+    }
+    .location{
+        font-size: 0.9rem;
+        padding-right:0;
+    }
+    .images-container img{
+        width:100%;
+        height:20rem;
+    }
+    .images-container{
+        width:100%;
+        display:flex;
+       flex-wrap: wrap;
+       flex-direction: column;
+       height:fit-content
+    }
+    .half-image{
+        display: none;
+    }
+    .showmore-photos{
+        position:relative;
+        top:0;
+        right:0;
+        border-radius: 10px;
+        outline: none;
+        padding:6px;
+    }
+} 
+
+
+
+ @media (max-width:763px){
+    .title{
+        font-size:0.76rem
+    }
+    .location{
+        font-size: 0.9rem !important;
+        padding-right:0;
+    }
+    .images-container img{
+        width:100%;
+        height:20rem;
+    }
+    .images-container{
+       display:flex;
+       flex-wrap: wrap;
+       flex-direction: column;
+       height:fit-content
+    }
+    .half-image{
+        display: none;
+    }
+    .showmore-photos{
+        position:relative;
+        top:0;
+        right:0;
+        border-radius: 10px;
+        outline: none;
+        padding:6px;
+    }
+} 
+
+
