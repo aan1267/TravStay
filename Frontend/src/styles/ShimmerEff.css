@@ -1,0 +1,30 @@
+.shimmer-card{
+    height:17rem !important;
+     width:100% !important;
+}
+
+@media (min-width: 360px) and (max-width:673px) {
+  .shimmer-card{
+    height:19rem !important;
+  }
+} 
+
+@media (min-width:674px) and (max-width: 1024px) {
+  .shimmer-card{
+    height:22rem !important;
+  }
+}
+
+@media (min-width:1024px)and(max-width: 1024px){
+  .shimmer-card{
+    height:23rem !important;
+  }
+}
+
+
+
+
+
+
+
+
