@@ -4,6 +4,6 @@ const BookingsController=require("../controllers/BookingsController.js")
 const {authenticate}=require("../middleware/authenticate.js")
 
 bookingsRoute.post("/",authenticate,BookingsController.bookings)
-bookingsRoute.get("/:id",authenticate,BookingsController.getbooking)
+bookingsRoute.get("/",authenticate,BookingsController.getbooking)
 
 module.exports=bookingsRoute
