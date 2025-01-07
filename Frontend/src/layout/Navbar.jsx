@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import "../styles/Navbar.css";
-import { SearchContext } from "../components/SearchContext";
+import { SearchContext } from "../context/SearchContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../components/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import Avatar from "@mui/material/Avatar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -15,7 +15,13 @@ export default function Navbar() {
   const dropdownRef = useRef(null);
   const { setSearchInput } = useContext(SearchContext);
   const navigate = useNavigate();
-
+  
+   // useEffect(()=>{
+  // if( window.location.pathname === "signup"){
+  //     setSearchInput("")
+  //     setIsOpen(false)
+  //   }
+  // },[window.location.pathname,setSearchInput])
 
   // !dropdownRef.current.contains(e.target))  detect click happen outside the dropdown
   const handleClickOutside = (e) => {
@@ -35,7 +41,6 @@ export default function Navbar() {
   const handleLogout = () => {
     logout()
     setIsOpen(false)
-    setisAuthenticate(false)
   };
 
   return (
