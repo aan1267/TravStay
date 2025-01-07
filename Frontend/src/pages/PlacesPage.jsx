@@ -55,7 +55,7 @@ function PlacesPage() {
                   to={`/account/places/${userlisting._id}`}
                   className="user-created-listing"
                 >
-                  <div className="userListing-container d-flex flex-column flex-md-row">
+                  <div className="userListing-container d-flex flex-column flex-sm-row">
                     <div className="listing-img">
                       <img src={`${userlisting.images?.[0]?.url}`} alt="" />
                     </div>

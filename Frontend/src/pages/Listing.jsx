@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { differenceInCalendarDays } from 'date-fns'
 import "../styles/Listing.css";
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate,  useNavigate, useParams } from "react-router-dom";
 import ImageContainer from "../components/ImageContainer";
 
 
@@ -13,9 +13,9 @@ function Listing() {
   const [guests, setGuest] = useState("");
   const [Name, setName] = useState("");
   const [redirect,setRedirect]=useState("")
-  const { id } = useParams();
+  const {id }= useParams();
   const navigate = useNavigate();
-
+  let token=localStorage.getItem("usersdatatoken")
 
   let numberofNights=0;
    if(checkin && checkout){
@@ -27,15 +27,13 @@ function Listing() {
         price:numberofNights * listings.price,
         listing:listings._id
       }
-
-      let token=localStorage.getItem("usersdatatoken")
-     const res=await axios.post("http://localhost:8080/bookings",data,{
+    const res=await axios.post("http://localhost:8080/bookings",data,{
       headers:{
         Authorization:token,
       }
      })
-     const bookingId=res.data._id
-     console.log(bookingId)
+    console.log(res.data.newbooking._id)
+    const bookingId=res.data.newbooking._id
      setRedirect(`/account/bookings/${bookingId}`)
   }
 
@@ -47,10 +45,10 @@ function Listing() {
   }
 
   //  const handleshowImages = () => {
-  //   navigate(`/listing/${id}/all-photos`, {
-  //     state: { images: listings.images },
-  //   });
-  // };
+  //    navigate(`/listing/${id}/all-photos`, {
+  //      state: { images: listings.images },
+  //    });
+  //  };
 
   //useParams
   useEffect(() => {
@@ -62,16 +60,17 @@ function Listing() {
 
    
   if(redirect){
-    return <Navigate to={redirect}/>
+    return <Navigate to={redirect} replace/>
   }
+
 
   return (
     <>
       {listings ? (
-        <div className="container p-4">
+        <div className="container mt-5">
           <div className="row mt-5">
             <div className="col-12 col-md-12 col-lg-12 mt-5">
-              <h1 className="title fw-bold text-nowrap">{listings.title}</h1>
+              <h1 className="title fw-bold text-nowrap ms-4">{listings.title}</h1>
               <ImageContainer listings={listings}/>
               <div className="container">
                 <div className="row">
@@ -96,27 +95,27 @@ function Listing() {
                       }}
                     >
                       <div className="price">Price : {listings.price}/night</div>
-                      <div className="border border-secondary rounded row mt-4 mx-1">
-                        <h6 className="col-6 border border-secondary p-2">
-                          CHECKIN
+                      <div className="row border border-secondary rounded mt-4">
+                        <h6 className="col col-md-6 border border-secondary p-2">
+                          CHECKIN :
                           <input
                             type="date"
-                            className="border-0 mt-2"
+                            className="border-0 mt-2" style={{outline:"none"}}
                             vale={checkin}
                             onChange={(e) => setCheckIn(e.target.value)}
                           />
                         </h6>
-                        <h6 className="col-6 border border-secondary p-2">
-                          CHECKOUT
+                        <h6 className="col col-md-6 border-top-0 border-bottom border-secondary p-2">
+                          CHECKOUT : 
                           <input
                             type="date"
-                            className="border-0 mt-2"
+                            className="border-0"
                             value={checkout}
                             onChange={(e) => setCheckOut(e.target.value)}
                           />
                         </h6>
                         <h5 className="fs-6 fw-normal">
-                          Number of Guests
+                          Number of Guests : 
                           <input
                             className="border-0"
                             placeholder="1"
@@ -126,10 +125,10 @@ function Listing() {
                           />
                         </h5>
                       </div>
-                      <h5 className="fs-6 mt-2 mx-2 fw-normal">
+                      <h5 className="fs-6 mt-2 fw-normal">
                         Your Full Name
                         <input
-                          className="p-1 rounded mt-2 w-100 border border-secondary"
+                          className=" rounded px-5 w-100 border border-secondary"
                           style={{ outline: "none" }}
                           value={Name}
                           onChange={(e) => setName(e.target.value)}
