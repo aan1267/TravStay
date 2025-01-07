@@ -8,7 +8,7 @@ import axios from "axios"
 import {useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
-import { useAuth } from "../components/AuthContext"
+import { useAuth } from "../context/AuthContext"
 
 function Login() {
   // const [email, setEmail] = useState("");

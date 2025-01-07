@@ -1,6 +1,6 @@
 import React from 'react'
 import "../styles/ProfilePage.css"
-import { useAuth } from '../components/AuthContext'
+import { useAuth } from '../context/AuthContext'
 import PlacesPage from './PlacesPage'
 import AccountNav from '../components/AccountNav'
 import { useParams } from 'react-router-dom'
