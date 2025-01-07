@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react"
 import Navbar from "../layout/Navbar"
 import Footer from "../layout/Footer.jsx"
 import { Outlet,useLocation} from "react-router-dom"
-import  {SearchProvider} from "../components/SearchContext.jsx"
+import  {SearchProvider} from "../context/SearchContext.jsx"
 
 
 
