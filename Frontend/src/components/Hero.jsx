@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Hero.css";
-import { SearchContext } from "./SearchContext";
+import { SearchContext } from "../context/SearchContext";
 import ShimmerEff from "./ShimmerEff";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
