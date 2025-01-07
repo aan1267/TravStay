@@ -60,7 +60,7 @@ function Listing() {
 
    
   if(redirect){
-    return <Navigate to={redirect} replace/>
+    return <Navigate to={redirect} />
   }
 
 
