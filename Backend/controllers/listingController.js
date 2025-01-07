@@ -23,20 +23,20 @@ const getListingById = async (req, res) => {
   }
 };
 
-const getAllPhotos = async (req, res) => {
-  try {
-    const listingId = req.params.id;
-    let listing = await Listing.findById(listingId);
+// const getAllPhotos = async (req, res) => {
+//   try {
+//     const listingId = req.params.id;
+//     let listing = await Listing.findById(listingId);
 
-    if (!listing) {
-      return res.status(404).json({ message: "Listing Not Found" });
-    }
+//     if (!listing) {
+//       return res.status(404).json({ message: "Listing Not Found" });
+//     }
 
-    res.json({ images: listing.images });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+//     res.json({ images: listing.images });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 
 const createListing = async (req, res) => {
   try {
@@ -94,10 +94,12 @@ const updateListing = async(req,res) => {
   }
 }
 
+
+
 module.exports = {
   getAllListings,
   getListingById,
-  getAllPhotos,
+  // getAllPhotos,
   createListing,
   getOwnListing,
   getUserSingleListing,
