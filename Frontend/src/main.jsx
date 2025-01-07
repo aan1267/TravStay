@@ -8,7 +8,7 @@ import Listing from "./pages/Listing.jsx";
 // import AllImages from "./components/AllImages.jsx";
 import LayoutComponent from "./layout/LayoutComponent.jsx";
 import Hero from "./components/Hero.jsx";
-import { AuthProvider } from "./components/AuthContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import PlacesPage from "./pages/PlacesPage.jsx";
 import PlacesForm from "./pages/PlacesForm.jsx";
@@ -76,6 +76,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+    // {
+    //   path: "/listing/:id/all-photos",
+   //   element: <AllImages />,
+   // },
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
