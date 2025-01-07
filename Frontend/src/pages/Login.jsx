@@ -13,6 +13,7 @@ import { useAuth } from "../components/AuthContext"
 function Login() {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
+  const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
   const {verifyToken}=useAuth()
 
@@ -45,6 +46,7 @@ function Login() {
 
   const onSubmit=async(data)=>{
     // console.log(data)
+    setLoading(true)
      try{
       const res= await axios.post("http://localhost:8080/jwt/login",data,{
         headers:{
@@ -58,6 +60,7 @@ function Login() {
             console.log(token)
             await verifyToken()
             handleSuccess("Login Successfully")
+            setLoading(false)
             setTimeout(() => {
               navigate("/")
             },1000)
@@ -68,6 +71,7 @@ function Login() {
      }catch(e){
       handleError("Login failed")
       console.error("Login error",e)
+      setLoading(false)
       }
     }
 
@@ -99,7 +103,7 @@ return (
                <p className="error">{errors.password?.message}</p>
             </div>
             <div>
-              <button class="login-btn">Login</button>
+              <button class="login-btn">{loading ? <span>Loading...</span> :<span>Login</span>}</button>
             </div>
             <p className="text-nowrap">
               Don't have an account yet?<Link to="/signup">Register now</Link>

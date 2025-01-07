@@ -15,7 +15,7 @@ function Signup() {
   // const [username, setUsername] = useState("")
   // const [email, setEmail] = useState("")
   // const [password, setPassword] = useState("")
-  
+  const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
 
   const handleError=(e)=>{
@@ -46,9 +46,9 @@ function Signup() {
     resolver: yupResolver(signupSchema)
   })
 
-  const onSubmit= async (data)=>{
+  const onSubmit= async(data)=>{
     // console.log(data)
-
+    setLoading(true)
     try{
       const res= await axios.post("http://localhost:8080/jwt/signup",data,{
         headers: {
@@ -58,12 +58,14 @@ function Signup() {
       if(res.status === 201){
          navigate("/login")
         handleSuccess("registered successfull!")
+        setLoading(false)
       }else{
          handleError("registered fail")
       }
     }catch(e){
       console.log(e)
       handleError("registeration failed")
+      setLoading(false)
     }
   }
 
@@ -71,7 +73,7 @@ function Signup() {
   return (
     <div>
       <div className="login-container d-flex align-items-center justify-content-center p-5 mt-5">
-        <div className="login-box">
+        <div className="login-box mt-5">
           <h5 className="text-center fs-1 border-bottom pb-3">Register</h5>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -105,7 +107,7 @@ function Signup() {
                <p className="error">{errors.password?.message}</p>
             </div>
             <div>
-              <button class="login-btn">Register</button>
+              <button class="login-btn">{loading ?<span>Loading...</span>:<span>Register</span>}</button>
             </div>
             <p className="text-nowrap">
               Aready have account then? <Link to="/login">Login now</Link>
