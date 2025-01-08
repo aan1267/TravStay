@@ -3,6 +3,7 @@ const app=express()
 const connectDB=require("./config/dbconfig.js")
 const cors=require("cors")
 const cookieParser=require("cookie-parser")
+const PORT= process.env.PORT || 8080
 
 // const data=require("./data.js")
 
@@ -13,6 +14,9 @@ const userRoute = require("./routes/userRoutes.js")
 const imageRoute = require("./routes/imageRoute.js")
 const bookingsRoute=require("./routes/bookingsRoute.js")
 
+const allowedOrigin = process.env.NODE_ENV === 'production' 
+  ? 'https://www.yoursite.com'
+  : 'http://localhost:5173'
 
 //middleware
 app.use(cors({
@@ -48,7 +52,7 @@ connectDB()
 // })
 
 
-app.listen(8080,()=>{
+app.listen(PORT,()=>{
     console.log("server is listen to 8080 port");
 })
 
