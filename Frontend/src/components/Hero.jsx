@@ -31,7 +31,7 @@ export default function Hero() {
 
   const getListings = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/listing");
+      const res = await axios.get("/listing");
       setAllListings(res.data.listings);
       // console.log(res.data.listings)
     } catch (e) {
@@ -78,7 +78,7 @@ export default function Hero() {
                     >
                      {images.map((img, index) => (
                         <SwiperSlide key={index} className="carousel-inner">
-                          <img className="img-fluid" src={img.url} alt="..." />
+                          <img className="img-fluid" src={img.url} alt="img" />
                         </SwiperSlide>
                       ))}
                     </Swiper>

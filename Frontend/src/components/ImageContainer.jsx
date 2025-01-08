@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function ImageContainer({listings}) {
     const [showallimages,setShowAllImages]=useState(false)
-    const navigate = useNavigate();
+
+     const navigate = useNavigate();
     const { id } = useParams();
 
   console.log(listings)
@@ -39,7 +40,7 @@ if(showallimages){
 }
   return (
     <div className="images-container">
-    {listings?.images.map((img, index) => {
+     {listings?.images.map((img, index) => {
       return (
         <div
           key={index}
