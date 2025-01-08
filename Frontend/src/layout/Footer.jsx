@@ -12,7 +12,7 @@ export default function Footer() {
   console.log(activesection)
 
  const fetchcategories=async()=>{
-  const res= await axios.get("http://localhost:8080/categories")
+  const res= await axios.get("/categories")
     console.log(res.data);
       setCategories(res.data.categories)
     console.log(res.data)

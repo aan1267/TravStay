@@ -6,10 +6,10 @@ import  {SearchProvider} from "../context/SearchContext.jsx"
 
 
 
-
 export default function LayoutComponent(){
   const [hidefooter ,setHideFooter]=useState(false)
   const location=useLocation()
+
   useEffect(()=>{
     if(location.pathname.startsWith("/account/")|| location.pathname.startsWith("/account")){
       setHideFooter(true)
@@ -17,6 +17,8 @@ export default function LayoutComponent(){
       setHideFooter(false)
     }
   },[location.pathname])
+
+
   return (
     <div className="app-container">
        <SearchProvider>
