@@ -5,6 +5,9 @@ const userModel=require("../models/user")
 const authenticate=async(req,res,next)=>{
       try{
          const token=req.headers.authorization
+         if(!token){
+            return res.status(401).json({message:"Unauthorized"})
+         }
          console.log("token:",token)
          const verifytoken=jwt.verify(token,process.env.JWT_SECRET)
 
@@ -18,7 +21,7 @@ const authenticate=async(req,res,next)=>{
 
          next()
        }catch(e){
-        res.status(401).json({status:401,message:"Unauthorized no token provide"})
+        return res.status(401).json({status:401,message:"Unauthorized no token provide"})
        }
    }
 
