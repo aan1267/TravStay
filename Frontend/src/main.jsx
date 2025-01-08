@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import axios from "axios";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Listing from "./pages/Listing.jsx";
@@ -15,6 +16,11 @@ import PlacesForm from "./pages/PlacesForm.jsx";
 import ProtectedRoute from "./context/ProtectedRoute.jsx";
 import Booking from "./pages/BookingPage.jsx";
 import BookingsPage from "./pages/BookingsPage.jsx";
+
+
+axios.defaults.baseURL=import.meta.env.VITE_API_BASE_URL
+axios.defaults.withCredentials=true
+
 
 const router = createBrowserRouter([
   {
