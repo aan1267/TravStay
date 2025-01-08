@@ -12,7 +12,7 @@ function PlacesPage() {
   const token = localStorage.getItem("usersdatatoken");
   // console.log(action)
   const getUserListings = async () => {
-    const res = await axios.get("http://localhost:8080/listing/userlisting", {
+    const res = await axios.get("/listing/userlisting", {
       headers: {
         Authorization: token,
       },

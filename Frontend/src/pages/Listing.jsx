@@ -22,12 +22,13 @@ function Listing() {
      numberofNights=differenceInCalendarDays(new Date(checkin),new Date(checkout))
    }
   const bookthisplace=async()=>{
+     try{
       const data={
         Name,checkin,checkout,guests,
         price:numberofNights * listings.price,
         listing:listings._id
       }
-    const res=await axios.post("http://localhost:8080/bookings",data,{
+    const res=await axios.post("/bookings",data,{
       headers:{
         Authorization:token,
       }
@@ -35,11 +36,19 @@ function Listing() {
     console.log(res.data.newbooking._id)
     const bookingId=res.data.newbooking._id
      setRedirect(`/account/bookings/${bookingId}`)
+     }catch(e){
+      if(e.response.status === 401){
+       console.log("Unauthorized,redirecting to login...");
+       navigate("/login")
+      }else{
+        console.error("error",e.message)
+      }
+     }
   }
 
 
   const getAllImages = async() => {
-    const res = await axios.get(`http://localhost:8080/listing/${id}`);
+    const res = await axios.get(`/listing/${id}`);
     setAllListings(res.data.listing);
     console.log(listings);
   }
@@ -157,4 +166,4 @@ function Listing() {
   );
 }
 
-export default Listing;
+export default Listing

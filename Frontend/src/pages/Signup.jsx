@@ -50,7 +50,7 @@ function Signup() {
     // console.log(data)
     setLoading(true)
     try{
-      const res= await axios.post("http://localhost:8080/jwt/signup",data,{
+      const res= await axios.post("/jwt/signup",data,{
         headers: {
           'Content-Type': 'application/json'
         }
@@ -81,6 +81,8 @@ function Signup() {
                 type="text"
                  id="username"
                 placeholder="enter your name"
+                disabled={loading}
+                readOnly={loading}
                 // onChange={(e) => setUsername(e.target.value)}
                 {...register("username")}
               />
@@ -91,6 +93,8 @@ function Signup() {
                 type="text"
                  id="email"
                 placeholder="your@gmail.com"
+                disabled={loading}
+                readOnly={loading}
                 // onChange={(e) => setEmail(e.target.value)}
                 {...register("email")}
               />
@@ -101,6 +105,8 @@ function Signup() {
                 type="password"
                  id="password"
                 placeholder="password"
+                disabled={loading}
+                readOnly={loading}
                 // onChange={(e) => setPassword(e.target.value)}
                 {...register("password")}
               />

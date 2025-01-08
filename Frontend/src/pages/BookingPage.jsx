@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "axios"
 import BookingDate from "../components/BookingDate";
 import ImageContainer from "../components/ImageContainer";
 
@@ -10,15 +10,13 @@ function BookingPage() {
   console.log(id);
   const getBooking = async () => {
     let token = localStorage.getItem("usersdatatoken");
-    const res = await axios.get("http://localhost:8080/bookings", {
+    const res = await axios.get("/bookings", {
       headers: {
         Authorization: token,
       },
     });
     const foundBooking = res.data.find(({ _id }) => _id === id);
-
-      setbooking(foundBooking);
-    
+    setbooking(foundBooking);
   };
 
   useEffect(() => {

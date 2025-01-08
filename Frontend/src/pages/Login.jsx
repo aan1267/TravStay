@@ -48,7 +48,7 @@ function Login() {
     // console.log(data)
     setLoading(true)
      try{
-      const res= await axios.post("http://localhost:8080/jwt/login",data,{
+      const res= await axios.post("/jwt/login",data,{
         headers:{
           'Content-Type': 'application/json'
         }
@@ -87,6 +87,8 @@ return (
                 type="text"
                 id="email"
                 placeholder="your@gmail.com"
+                disabled={loading}
+                readOnly={loading}
                 // onClick={(e) => setEmail(e.target.value)}
                 {...register("email")}
               />
@@ -97,6 +99,8 @@ return (
                 type="password"
                  id="password"
                 placeholder="password"
+                disabled={loading}
+                readOnly={loading}
                 // onClick={(e) => setPassword(e.target.value)}
                 {...register("password")}
               />

@@ -21,7 +21,7 @@ function PlacesForm() {
         return;
       }
       let { data } = await axios.get(
-        `http://localhost:8080/listing/userlisting/${id}`
+        `/listing/userlisting/${id}`
       );
       console.log("img", data.userListing);
       let { title, description, images, location, price, country } =

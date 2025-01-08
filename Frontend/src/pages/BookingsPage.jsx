@@ -11,7 +11,7 @@ function BookingsPage() {
   const getBookings = async () => {
     try {
       let token = localStorage.getItem("usersdatatoken");
-      const res = await axios.get("http://localhost:8080/bookings", {
+      const res = await axios.get("/bookings", {
         headers: {
           Authorization: token,
         },
