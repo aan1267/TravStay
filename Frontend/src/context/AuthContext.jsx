@@ -17,13 +17,18 @@ export const AuthProvider = () => {
   const verifyToken = async () => {
     try {
       let token = localStorage.getItem('usersdatatoken')
-      const res = await axios.get("http://localhost:8080/jwt/validuser", {
+
+      if (!token) {
+        setIsAuthenticate(false); 
+        return;
+      }
+      const res = await axios.get("/jwt/validuser", {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
         },
       })
-      console.log(res.data.ValidUserOne)
+       console.log(res.data.ValidUserOne)
       let username = res.data.ValidUserOne.username
       let email= res.data.ValidUserOne.email
       setEmail(email)
@@ -48,7 +53,7 @@ export const AuthProvider = () => {
 
   const logout = async () => {
     let token = localStorage.getItem('usersdatatoken')
-    const res = await axios.post("http://localhost:8080/jwt/logout",{},{
+    const res = await axios.post("/jwt/logout",{},{
       headers: {
         "content-type": "application/json",
         Authorization: token,
