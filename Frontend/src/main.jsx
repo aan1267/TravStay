@@ -17,8 +17,8 @@ import ProtectedRoute from "./context/ProtectedRoute.jsx";
 import Booking from "./pages/BookingPage.jsx";
 import BookingsPage from "./pages/BookingsPage.jsx";
 
-
-axios.defaults.baseURL=import.meta.env.VITE_API_BASE_URL
+const isProduction = process.env.NODE_ENV === 'production';
+axios.defaults.baseURL= isProduction ? import.meta.env.VITE_API_BASE_URL : "http://localhost:8080/"
 axios.defaults.withCredentials=true
 
 
