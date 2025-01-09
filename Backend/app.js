@@ -54,7 +54,8 @@ connectDB()
 
 
 app.listen(port,'0.0.0.0',()=>{
-    console.log("server is listen to 8080 port");
+     console.log(`server is listen to ${port}`)
+    // console.log("server is listen to 8080 port");
 })
 
 
