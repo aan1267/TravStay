@@ -14,6 +14,10 @@ const listingSchema=new Schema({
     price:String,
     location:String,
     country:String,
+    category:{
+        type:String,
+        required:true,
+    },
     owner:{
         type:Schema.Types.ObjectId,
         ref:"User",
