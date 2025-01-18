@@ -10,20 +10,20 @@ const port= process.env.PORT || 8080
 
 //import routes
 const listingRoutes=require("./routes/listingRoutes.js")
-const categoryRoutes = require("./routes/categoriesRoutes.js")
 const userRoute = require("./routes/userRoutes.js")
 const imageRoute = require("./routes/imageRoute.js")
 const bookingsRoute=require("./routes/bookingsRoute.js")
 
  const allowedOrigin = process.env.NODE_ENV === 'production' 
-   ? process.env.FRONTEND_URL_PROD
-  : 'http://localhost:5173'
+   ? [process.env.FRONTEND_URL_PROD]
+  : [process.env.FRONTEND_URL_DEV]
 
+const corsOptions={
+  origin:allowedOrigin, 
+credentials: true,  
+}
 //middleware
-app.use(cors({
-    origin:allowedOrigin, 
-  credentials: true,  
-}))
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
@@ -31,7 +31,6 @@ app.use(express.urlencoded({ extended: true }))
 
 //use routes
 app.use("/listing",listingRoutes)
-app.use("/categories",categoryRoutes)
 app.use("/jwt",userRoute)
 app.use("/api",imageRoute)
 app.use("/bookings",bookingsRoute)
@@ -40,18 +39,14 @@ app.use("/bookings",bookingsRoute)
 
 connectDB()
 
-
-
-
 // app.get("/",(req,res)=>{
 //     res.send("hello")
 // })
 
 // app.get("/insert",async(req,res)=>{
-//     await Category.insertMany(categories)
-//     console.log("data category")
+//     await Listing.insertMany(data)
+//     console.log("data insert")
 // })
-
 
 app.listen(port,'0.0.0.0',()=>{
      console.log(`server is listen to ${port}`)
