@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import "../styles/Listing.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaImage, FaTimes } from "react-icons/fa";
 
 
 function ImageContainer({listings}) {
@@ -32,7 +33,7 @@ if(showallimages){
             )
          })
     }
-    <button className="close-photo-btn" onClick={()=>setShowAllImages(false)}><i class="fa-solid fa-xmark"></i>
+    <button className="close-photo-btn" onClick={()=>setShowAllImages(false)}><FaTimes/>
     Close Photos</button>
  </div>
    </div>
@@ -59,7 +60,7 @@ if(showallimages){
       );
     })}
     <button className="showmore-photos" onClick={()=>setShowAllImages(true)}>
-      <i class="fa-solid fa-image"></i> <span>Show more photos</span>
+    <FaImage className="fs-6"/>  Show more photos
     </button>
   </div>
    )}

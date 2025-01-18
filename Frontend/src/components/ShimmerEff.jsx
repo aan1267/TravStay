@@ -5,8 +5,8 @@ import "../styles/ShimmerEff.css"
 
 const ShimmerEff = () => {
           return (
-            <div className="container">
-            <div className="row mt-2 g-3">
+            <div className="container mt-2">
+            <div className="row g-4">
               {Array.from({ length: 21 }).map((_, index) => (
                 <div key={index} className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-2 g-3">
                    <Skeleton variant="rectangle" className="rounded shimmer-card" />
