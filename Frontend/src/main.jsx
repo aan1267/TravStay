@@ -6,7 +6,6 @@ import axios from "axios";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Listing from "./pages/Listing.jsx";
-// import AllImages from "./components/AllImages.jsx";
 import LayoutComponent from "./layout/LayoutComponent.jsx";
 import Hero from "./components/Hero.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
@@ -16,6 +15,7 @@ import PlacesForm from "./pages/PlacesForm.jsx";
 import ProtectedRoute from "./context/ProtectedRoute.jsx";
 import Booking from "./pages/BookingPage.jsx";
 import BookingsPage from "./pages/BookingsPage.jsx";
+
 
 const isProduction = process.env.NODE_ENV === 'production';
 axios.defaults.baseURL= isProduction ? import.meta.env.VITE_API_BASE_URL : "http://localhost:8080/"
