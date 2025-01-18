@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios"
 import BookingDate from "../components/BookingDate";
 import ImageContainer from "../components/ImageContainer";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 function BookingPage() {
   const [booking, setbooking] = useState(null);
@@ -30,7 +31,7 @@ function BookingPage() {
       <div className="container mt-5 p-5">
           <h1 className="fs-5">{booking?.listingid.title}</h1>
         <h4>
-          <i class="fa-solid fa-location-dot"></i>
+           <FaMapMarkerAlt />
           <span class="location ps-2 text-nowrap">
             {booking?.listingid.location}
           </span>

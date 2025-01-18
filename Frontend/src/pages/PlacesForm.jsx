@@ -10,10 +10,24 @@ function PlacesForm() {
   const [location, setLocation] = useState("");
   const [country, setCountry] = useState("");
   const [price, setPrice] = useState("");
+  const [category,setSelectCategory]=useState("")
   const [addPhotos, setAddPhotos] = useState([]);
   const [photosLink, setPhotosLink] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const { id } = useParams();
+
+  const categories = [
+    "BeachFront",
+    "Rooms", 
+    "Iconic Cities", 
+    "Mountains",
+    "Amazing Views",
+    "Trending",
+     "Lake", 
+    "Domes", 
+    "Entire place", 
+   "Bed&BreakFast",
+  ]; 
 
   useEffect(() => {
     const UserListingSingle = async () => {
@@ -24,7 +38,7 @@ function PlacesForm() {
         `/listing/userlisting/${id}`
       );
       console.log("img", data.userListing);
-      let { title, description, images, location, price, country } =
+      let { title, description, images, location, price, country,category } =
         data.userlisting;
       setTitle(title);
       setDescription(description);
@@ -32,6 +46,7 @@ function PlacesForm() {
       setLocation(location);
       setPrice(price);
       setCountry(country);
+      setSelectCategory(category)
     };
     UserListingSingle();
   }, [id]);
@@ -46,6 +61,7 @@ function PlacesForm() {
       location: location,
       price: price,
       country: country,
+      category :category
     };
     console.log(data);
     let token = localStorage.getItem("usersdatatoken");
@@ -121,7 +137,7 @@ function PlacesForm() {
         <form onSubmit={(e) => addNewListing(e)}>
           <div className="row mb-3">
             <div className="col-12">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title" class="form-label">Title</label>
               <input
                 type="text"
                 placeholder="title, for example: My lovely apt"
@@ -135,11 +151,12 @@ function PlacesForm() {
 
           <div className="row mb-3">
             <div className="col-12">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description" class="form-label">Description</label>
               <textarea
                 rows="5"
                 cols="6"
                 placeholder="description"
+                id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="form-control"
@@ -148,7 +165,7 @@ function PlacesForm() {
           </div>
 
           <div className="row">
-          <label htmlFor="photos">Photos</label>
+          <label htmlFor="photos" class="form-label">Photos</label>
             <div className="col-12 d-flex align-items-center">
               <div className="photos-link flex-grow-1">
                 <input
@@ -196,20 +213,22 @@ function PlacesForm() {
 
           <div className="row mb-3">
             <div className="col-md-6">
-              <label htmlFor="location">Location</label>
+              <label htmlFor="location" class="form-label">Location</label>
               <input
                 type="text"
                 placeholder="Pune, India"
+                id="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="form-control"
               />
             </div>
             <div className="col-md-6">
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price" class="form-label">Price</label>
               <input
                 type="number"
                 placeholder="1200"
+                id="price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 className="form-control"
@@ -219,14 +238,25 @@ function PlacesForm() {
 
           <div className="row mb-3">
             <div className="col-md-6">
-              <label htmlFor="country">Country</label>
+              <label htmlFor="country" class="form-label">Country</label>
               <input
                 type="text"
                 placeholder="India"
+                id="country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
                 className="form-control"
               />
+            </div>
+            <div className="col-md-6">
+              <label htmlFor="Category" className="form-label">Category</label>
+              <select className="form-select border p-1 w-100" onChange={(e)=>setSelectCategory(e.target.value)}id="Category">
+              <option value="">{id ? category :"select category"}</option>
+              { categories.map((item,index)=>(
+                  <option key={index} value={item}>{item}</option>
+              ))}
+              </select>
+              <h1>{console.log(category)}</h1>
             </div>
           </div>
 
@@ -242,6 +272,8 @@ function PlacesForm() {
 }
 
 export default PlacesForm;
+
+
 
 
 

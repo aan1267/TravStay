@@ -4,6 +4,7 @@ import { differenceInCalendarDays } from 'date-fns'
 import "../styles/Listing.css";
 import { Navigate,  useNavigate, useParams } from "react-router-dom";
 import ImageContainer from "../components/ImageContainer";
+import { FaMapMarkerAlt  } from "react-icons/fa";
 
 
 function Listing() {
@@ -21,7 +22,8 @@ function Listing() {
    if(checkin && checkout){
      numberofNights=differenceInCalendarDays(new Date(checkin),new Date(checkout))
    }
-  const bookthisplace=async()=>{
+  const bookthisplace=async(e)=>{
+    e.preventDefault()
      try{
       const data={
         Name,checkin,checkout,guests,
@@ -83,9 +85,9 @@ function Listing() {
               <ImageContainer listings={listings}/>
               <div className="container">
                 <div className="row">
-                  <div className="col-12 col-xl-8">
+                  <div className="col-md-12 col-lg-8 col-xl-8">
                     <h4>
-                      <i class="fa-solid fa-location-dot"></i>
+                      <FaMapMarkerAlt />
                       <span class="location ps-2 fs-4 text-nowrap">
                         {listings.location}
                       </span>
@@ -95,9 +97,9 @@ function Listing() {
                     <p className="text-wrap p-2 ">{listings.description}</p>
                     <hr />
                   </div>
-                  <div className="col-xl-4">
+                  <form className="col-xl-4 col-lg-4 col-sm-12 col-md-12" onSubmit={(e)=>bookthisplace(e)}>
                     <div
-                      className="border p-5  w-100 shadow rounded"
+                      className="border p-5 w-100 shadow rounded"
                       style={{
                         border: "2px solid grey",
                         boxSizing: "border-box",
@@ -105,52 +107,54 @@ function Listing() {
                     >
                       <div className="price">Price : {listings.price}/night</div>
                       <div className="row border border-secondary rounded mt-4">
-                        <h6 className="col col-md-6 border border-secondary p-2">
-                          CHECKIN :
+                        <div className="col col-md-6 border border-secondary p-2 border-box">
+                           <label htmlFor="checkin">CHECKIN :</label>
                           <input
                             type="date"
-                            className="border-0 mt-2" style={{outline:"none"}}
+                            id="checkin"
+                            className="form-control border-0 outline-0"
                             vale={checkin}
                             onChange={(e) => setCheckIn(e.target.value)}
                           />
-                        </h6>
-                        <h6 className="col col-md-6 border-top-0 border-bottom border-secondary p-2">
-                          CHECKOUT : 
+                        </div>
+                        <div className="col col-md-6 border-top-0 border-bottom border-secondary p-2">
+                        <label htmlFor="checkout"> CHECKIN :</label>
                           <input
                             type="date"
-                            className="border-0"
+                            id="checkout"
+                            className="form-control border-0"
                             value={checkout}
                             onChange={(e) => setCheckOut(e.target.value)}
                           />
-                        </h6>
-                        <h5 className="fs-6 fw-normal">
-                          Number of Guests : 
+                        </div>
+                        <div className="fs-6 p-2">
+                         <label htmlFor="guest">Number of Guests:</label>
                           <input
-                            className="border-0"
+                            className="form-control"
+                            id="guest"
                             placeholder="1"
-                            style={{ outline: "none" }}
                             value={guests}
                             onChange={(e) => setGuest(e.target.value)}
                           />
-                        </h5>
-                      </div>
-                      <h5 className="fs-6 mt-2 fw-normal">
-                        Your Full Name
+                        </div>
+                      <div className="my-2">
+                        <h1 className="fs-6 fw-normal">Your Full Name</h1>
                         <input
-                          className=" rounded px-5 w-100 border border-secondary"
+                          className="form-control rounded w-100"
                           style={{ outline: "none" }}
                           value={Name}
                           onChange={(e) => setName(e.target.value)}
                         />
-                      </h5>
-                      <button className="login-btn p-2 mt-2" onClick={bookthisplace}>
+                      </div>
+                    </div>
+                      <button className="login-btn p-2 mt-2">
                         Booking 
                         {checkin && checkout &&(
                             <span>{numberofNights * listings.price}</span>
                         )}
                       </button>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div>
