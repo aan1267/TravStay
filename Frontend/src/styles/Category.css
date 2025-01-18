@@ -1,0 +1,51 @@
+.custom-style{
+    border:none;
+    background:none;
+}
+
+.custom-style.active{
+  border-bottom:2px solid black;
+  padding-bottom:5px;
+}
+
+.category-component{
+    z-index:5;
+    background-color: #fff 
+}
+
+
+
+@media (min-width:320px)and (max-width:375px) {
+    .category-component{
+     font-size:0.6rem;
+     padding-top:0 !important;
+     margin-top:35px !important;
+     text-wrap:nowrap;
+   }
+ }
+
+
+ @media (min-width:375px)and (max-width:673px) {
+    .category-component{
+     font-size:0.8rem;
+     text-wrap:nowrap;
+   }
+ }
+
+ @media (min-width:674px) and (max-width:1024px){
+    .category-component{
+        font-size:0.7.5rem;
+        text-wrap:nowrap;
+      }
+}
+
+@media (min-width:1024px) and (max-width:1440px){
+    .category-component{
+        font-size:1.10rem;
+        text-wrap:nowrap;
+      }
+}
+
+
+
+ 
