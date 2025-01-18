@@ -5,9 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Avatar from "@mui/material/Avatar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { FaBars, FaSearch } from 'react-icons/fa';
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
 
   const { username, logout, isAuthenticate,setisAuthenticate} = useAuth();
   // console.log(username)
@@ -16,12 +19,13 @@ export default function Navbar() {
   const { setSearchInput } = useContext(SearchContext);
   const navigate = useNavigate();
   
-   // useEffect(()=>{
+  
   // if( window.location.pathname === "signup"){
   //     setSearchInput("")
   //     setIsOpen(false)
   //   }
   // },[window.location.pathname,setSearchInput])
+ 
 
   // !dropdownRef.current.contains(e.target))  detect click happen outside the dropdown
   const handleClickOutside = (e) => {
@@ -29,6 +33,7 @@ export default function Navbar() {
       setIsOpen(false)
     }
   };
+ 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside)
   }, [])
@@ -45,8 +50,9 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/">
-        <div className="header">
+      <div className="container">
+      <Link to="/" className="text-decoration-none">
+        <div className="header d-flex align-items-center">
           <img className="logo" src="/Travsaty-icon.png" alt="Travstay" />
           <h1>Travstay</h1>
         </div>
@@ -59,9 +65,9 @@ export default function Navbar() {
               placeholder="Search here..."
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <span>
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
+              <span>
+              <FaSearch />
+              </span>
           </div>
         )}
       </div>
@@ -76,13 +82,13 @@ export default function Navbar() {
             onClick={toggleDropDown}
           >
             <span className="profile">
-              <i class="fa-solid fa-bars"></i>
+            <FaBars/>
             </span>
             <span>
               {isAuthenticate ? (
-                <Avatar style={{ background: "blue" }}>{username}</Avatar>
+                <Avatar className="bg-primary">{username}</Avatar>
               ) : (
-                <AccountCircleIcon id="user-icon" style={{ fontSize: 40 }} />
+                <AccountCircleIcon className="fs-1" />
               )}
             </span>
           </button>
@@ -104,7 +110,8 @@ export default function Navbar() {
             </div>
         </div>
       </div>
-    </div>
+  </div>
+  </div>
   );
 }
 
