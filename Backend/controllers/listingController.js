@@ -40,12 +40,12 @@ const getListingById = async (req, res) => {
 
 const createListing = async (req, res) => {
   try {
-    const { title, description, images, location, country, price } = req.body;
+    const { title, description, images, location, country, price,category} = req.body;
 
     if (!title || !description || !images || !location || !country || !price) {
       res.status(400).json({ error: "all field are required" });
     }
-    const data = { title, description, images, location, country, price };
+    const data = { title, description, images, location, country, price ,category};
     console.log("img",images)
     const newListing = new Listing(data)
     newListing.owner = req.userId
@@ -83,11 +83,11 @@ const getUserSingleListing = async (req, res) => {
 const updateListing = async(req,res) => {
   const userid = req.userId;
   console.log(userid)
-  const {id,title, description, images, location, country, price } = req.body
+  const {id,title, description, images, location, country, price,category} = req.body
   const listing=await Listing.findById(id)
   if(userid.toString() === listing.owner.toString()){
     listing.set({
-      title, description, images, location, country, price 
+      title, description, images, location, country, price,category 
     })
     await listing.save()
     res.status(200).json({message:"Listing Updated Successfully"})
@@ -99,7 +99,6 @@ const updateListing = async(req,res) => {
 module.exports = {
   getAllListings,
   getListingById,
-  // getAllPhotos,
   createListing,
   getOwnListing,
   getUserSingleListing,
