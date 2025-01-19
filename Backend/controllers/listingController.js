@@ -23,6 +23,7 @@ const getListingById = async (req, res) => {
   }
 };
 
+
 // const getAllPhotos = async (req, res) => {
 //   try {
 //     const listingId = req.params.id;

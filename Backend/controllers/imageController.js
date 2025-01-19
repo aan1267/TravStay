@@ -41,12 +41,6 @@ module.exports={uploadByLink,uploadImages}
 
 
 
- // // console.log(originalname)
-        // const parts=originalname.split(".")
-        // const exte= parts[parts.length-1]
-        // const newpath=path + "." + exte
-        // // console.log(newpath)
-        //   fs.renameSync(path,newpath)
-        // uploadfiles.push(newpath.replace("uploads",""))
+
 
        
