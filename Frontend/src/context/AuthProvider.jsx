@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react"
+import React, { createContext, useState, useEffect, useContext, Children } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import axios from "axios"
 
@@ -9,9 +9,10 @@ export const AuthProvider = () => {
   const [username, setUsername] = useState(null)
   const [email,setEmail]=useState(null)
   const [isAuthenticate, setIsAuthenticate] = useState(false)
+  const [loading,setLoading]=useState(true)
+  
+ 
   const navigate = useNavigate()
- 
- 
    
  
   const verifyToken = async () => {
@@ -20,6 +21,7 @@ export const AuthProvider = () => {
 
       if (!token) {
         setIsAuthenticate(false); 
+        setLoading(false)
         return;
       }
       const res = await axios.get("/jwt/validuser", {
@@ -41,11 +43,9 @@ export const AuthProvider = () => {
       localStorage.removeItem("usersdatatoken")
       setIsAuthenticate(false)
     }
+    setLoading(false)
   }
 
-  if(isAuthenticate == null){
-    return <div>Loading...</div>
-  }
 
   useEffect(() => {
       verifyToken()
@@ -73,8 +73,8 @@ export const AuthProvider = () => {
 
 
   return (
-    <AuthContext.Provider value={{ username, isAuthenticate, logout,verifyToken,fullName,email}}>
-      <Outlet />
+    <AuthContext.Provider value={{ username, isAuthenticate, logout,verifyToken,fullName,email,loading}}>
+      <Outlet /> 
     </AuthContext.Provider>
   )
 }
