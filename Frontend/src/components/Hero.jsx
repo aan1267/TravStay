@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Hero.css";
-import { SearchContext } from "../context/SearchContext";
+import { SearchContext } from "../context/SearchProvider.jsx";
 import ShimmerEff from "./ShimmerEff";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"
@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 import Category from "./Categories.jsx";
+import {FiFrown} from "react-icons/fi";
 
 export default function Hero() {
   const [alllistings, setAllListings] = useState([]);
@@ -19,8 +20,8 @@ export default function Hero() {
 
   const navigate = useNavigate();
 
-  const handleChild = (data) => {
-    console.log("get child category", data);
+  const handleSelectedCategory = (data) => {
+    console.log("get  selected category from Categories.jsx child", data);
     setSelectedCategory(data);
   };
 
@@ -56,8 +57,8 @@ export default function Hero() {
   useEffect(() => {
     const filteredListings = alllistings.filter((listing) =>
       searchInput === ""
-        ? listing.category === selectedCategory
-        : listing.location.toLowerCase().includes(searchInput.toLowerCase())
+        ? selectedCategory === "All" || listing.category === selectedCategory  
+        : listing.location.toLowerCase().includes(searchInput.toLowerCase())  
     );
     setfilteredListings(filteredListings);
   }, [alllistings, searchInput, selectedCategory]);
@@ -65,15 +66,15 @@ export default function Hero() {
   const fcount = filteredListings.length;
 
   useEffect(() => {
-    setTimeout(() => getListings(), 2000);
+    setTimeout(() => getListings(), 1000);
   }, []);
 
   return (
     <>
-      <Category senddatatoparent={handleChild}  />
-      <div className="listi container mt-5">
+      <Category selectedCategory={handleSelectedCategory}  />
+      <div className="listi container  mt-5">
          <div className="row">
-        {filteredListings.length > 0 ? (
+        {fcount > 0 ? (
           filteredListings.map((val) => {
             let { images, location, price, _id } = val;
             // console.log(val);
@@ -109,10 +110,11 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-            );
+            )
           })
         ) : (
-          <ShimmerEff />
+          // <ShimmerEff />
+          searchInput ? <h1 className="text-center"><FiFrown size={100}/> No Listing Found</h1> : <ShimmerEff />
         )}
         </div>
       </div>
