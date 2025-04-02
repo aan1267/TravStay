@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../styles/PlacesPage.css";
 import PlacesForm from "./PlacesForm";
 import axios from "axios";
@@ -7,9 +7,12 @@ import AccountNav from "../components/AccountNav";
 
 function PlacesPage() {
   const [userCreatedListing, setUserCreatedListing] = useState([]);
-  const { action } = useParams();
   const [selectedlistingid, setSelectedListingId] = useState(null);
+
   const token = localStorage.getItem("usersdatatoken");
+  const { action } = useParams();
+
+
   // console.log(action)
   const getUserListings = async () => {
     const res = await axios.get("/listing/userlisting", {
@@ -30,6 +33,8 @@ function PlacesPage() {
       setSelectedListingId(id)
     }
   };
+
+ 
 
   useEffect(() => {
     getUserListings();
@@ -82,7 +87,8 @@ function PlacesPage() {
             })}
           </div>
         )}
-        {action === "new" && <PlacesForm />}
+        {console.log("usercreatedlisting",userCreatedListing)}
+        {action === "new" && <PlacesForm userCreatedListing={userCreatedListing} setCreatedListing={setUserCreatedListing} />}
       </div>
     </>
   );
