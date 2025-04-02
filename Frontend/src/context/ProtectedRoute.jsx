@@ -7,7 +7,7 @@ function ProtectedRoute() {
   const { isAuthenticate, loading } = useAuth();
 
   //  if(loading) return <div>Loading...</div>
-  if (loading)
+  if (loading){
     return (
       <div
         className="d-flex justify-content-center align-items-center"
@@ -16,6 +16,7 @@ function ProtectedRoute() {
         <Spinner animation="border" variant="primary" />
       </div>
     );
+  }
   return isAuthenticate ? <Outlet /> : <Navigate to="/login" replace />;
 }
 export default ProtectedRoute;
