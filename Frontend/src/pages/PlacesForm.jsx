@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate,useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import AccountNav from "../components/AccountNav";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-function PlacesForm() {
+function PlacesForm({userCreatedListing,setCreatedListing}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -15,6 +15,7 @@ function PlacesForm() {
   const [photosLink, setPhotosLink] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate()
 
   const categories = [
     "BeachFront",
@@ -28,7 +29,8 @@ function PlacesForm() {
     "Entire place", 
    "Bed&BreakFast",
   ]; 
-
+  {console.log("usercreatedlisting",userCreatedListing)}
+  
   useEffect(() => {
     const UserListingSingle = async () => {
       if (!id) {
@@ -108,9 +110,22 @@ function PlacesForm() {
     e.preventDefault();
     setAddPhotos([...addPhotos.filter((photo) => photo !== link)]);
   };
+ 
+  console.log("get",setCreatedListing)
+  const handleDeleteListing = async(id)=>{
+    await axios.delete(`/listing/userlisting/${id}`)
+    console.log(id)
+    const updatedListings= userCreatedListing?.filter(listing => listing.id !== id )
+    if(setCreatedListing){
+      setCreatedListing(updatedListings)
+    }
+    navigate("/account/places");
+  }
+  
+ 
 
-  const uploadPhotos = async (env) => {
-    const files = env.target.files;
+  const uploadPhotos = async (e) => {
+    const files = e.target.files;
     const data = new FormData();
     console.log({ files });
     for (let i = 0; i < files.length; i++) {
@@ -133,7 +148,7 @@ function PlacesForm() {
   return (
     <>
       <AccountNav />
-      <div className="container my-5">
+      <div className="container my-5 flex">
         <form onSubmit={(e) => addNewListing(e)}>
           <div className="row mb-3">
             <div className="col-12">
@@ -262,10 +277,18 @@ function PlacesForm() {
 
           <button
             className="add-places-btn border-0 px-5 py-3"
+            type="submit"
           >
             Submit
           </button>
+          
         </form>
+        <button
+            className="add-places-btn border-0 px-5 py-3 mt-2"
+            onClick={()=>handleDeleteListing(id)}
+          >
+            Delete
+        </button>
       </div>
     </>
   );
