@@ -95,6 +95,16 @@ const updateListing = async(req,res) => {
   }
 }
 
+const deleteListing =async(req,res)=>{
+   try{
+    const {id}= req.params;
+   const deleteListing = await Listing.findByIdAndDelete(id)
+    res.json({message:"deleted sucessfully"})
+   }catch(e){
+     console.error(e)
+     res.status(500).json({message:"Internal server error"})
+   }
+}
 
 
 module.exports = {
@@ -104,4 +114,5 @@ module.exports = {
   getOwnListing,
   getUserSingleListing,
   updateListing,
+  deleteListing,
 };
