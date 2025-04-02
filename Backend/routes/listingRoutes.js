@@ -10,6 +10,6 @@ listingRouter.get("/",listingController.getAllListings)
 listingRouter.post("/new",authenticate,listingController.createListing)
 listingRouter.get("/userlisting/:id",listingController.getUserSingleListing)
 listingRouter.put("/userlisting/edit",authenticate,listingController.updateListing)
-
+listingRouter.delete("/userlisting/:id",listingController.deleteListing)
 
 module.exports=listingRouter
