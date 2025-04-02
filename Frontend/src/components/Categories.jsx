@@ -4,13 +4,15 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react"; 
 import "../styles/Category.css";
 import { Navigation } from "swiper/modules";
+import { TbClearAll } from "react-icons/tb";
 import { FaBed, FaCity, FaFire, FaHome, FaIgloo, FaMountain, FaMugHot, FaUmbrellaBeach, FaWater, FaWindowMaximize } from "react-icons/fa";
  
 
-const Category = ({senddatatoparent}) => {
-  const [activeCategory, setActiveCategory] = useState("Amazing Views");
+const Category = ({selectedCategory}) => {
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const categories = [
+    { name: "All", icon: <TbClearAll /> },
     { name: "Amazing Views", icon: <FaWindowMaximize /> },
     { name: "Rooms", icon: <FaBed/> },
     { name: "Iconic Cities", icon: <FaCity/>  },
@@ -24,7 +26,7 @@ const Category = ({senddatatoparent}) => {
   ];
 
   const handleCategory=(category)=>{
-     senddatatoparent(category)
+     selectedCategory(category)
   }
 
   return (
