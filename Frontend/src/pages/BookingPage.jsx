@@ -9,6 +9,7 @@ function BookingPage() {
   const [booking, setbooking] = useState(null);
   const { id } = useParams();
   console.log(id);
+  
   const getBooking = async () => {
     let token = localStorage.getItem("usersdatatoken");
     const res = await axios.get("/bookings", {
@@ -29,11 +30,11 @@ function BookingPage() {
   return (
     <>
       <div className="container mt-5 p-5">
-          <h1 className="fs-5">{booking?.listingid.title}</h1>
+          <h1 className="fs-5">{booking?.listingid?.title}</h1>
         <h4>
            <FaMapMarkerAlt />
           <span class="location ps-2 text-nowrap">
-            {booking?.listingid.location}
+            {booking?.listingid?.location}
           </span>
         </h4>
         <div className="d-flex justify-content-between p-3 mb-4 rounded flex-column flex-md-row" style={{backgroundColor:"#F5F5F5"}}>
@@ -43,7 +44,7 @@ function BookingPage() {
             <BookingDate booking={booking}/>
             </div>
             <div className="text-white p-2 p-md-3 rounded" style={{backgroundColor:"#53b1eb"}}>
-                   Total Price : {booking?.listingid.price}
+                   Total Price : {booking?.listingid?.price}
             </div>
         </div>
         <ImageContainer listings={booking?.listingid}/>
