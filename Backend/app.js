@@ -19,8 +19,8 @@ const bookingsRoute=require("./routes/bookingsRoute.js")
   : [process.env.FRONTEND_URL_DEV]
 
 const corsOptions={
-  origin:allowedOrigin, 
-credentials: true,  
+  origin:"*", 
+  credentials: true,  
 }
 //middleware
 app.use(cors(corsOptions))
