@@ -17,6 +17,7 @@ function BookingsPage() {
         },
       });
       setBookings(res.data);
+      console.log(res.data);
     } catch (e) {
       console.log("error", e.message);
     }
@@ -30,18 +31,18 @@ function BookingsPage() {
     <>
       <AccountNav />
           <div>
-          {bookings?.length > 0 &&
+          {bookings.length > 0 &&
             bookings.map((booking) => (
               <Link to={`/account/bookings/${booking._id}`} className="text-black text-decoration-none">
                   <div className="d-flex justify-content-between rounded m-5 flex-column flex-sm-row" style={{backgroundColor:"#F5F5F5"}}>
                 <div className="listing-img">
-                  <img src={booking.listingid.images?.[0]?.url} alt="" />
+                  <img src={booking?.listingid?.images?.[0]?.url} alt="" />
                 </div>
                 <div className="flex-grow-1 p-3" >
-                  <h2 className="fs-6">{booking.listingid.title}</h2>
+                  <h2 className="fs-6">{booking?.listingid?.title}</h2>
                   <BookingDate booking={booking}/>
                    <div className="fw-bold fs-6">
-                   Total Price: {booking.listingid.price}
+                   Total Price: {booking?.listingid?.price}
                    </div>
                 </div>
               </div>
