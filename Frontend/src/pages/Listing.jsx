@@ -113,7 +113,7 @@ function Listing() {
                             type="date"
                             id="checkin"
                             className="form-control border-0 outline-0"
-                            vale={checkin}
+                            value={checkin}
                             onChange={(e) => setCheckIn(e.target.value)}
                           />
                         </div>
@@ -131,8 +131,11 @@ function Listing() {
                          <label htmlFor="guest">Number of Guests:</label>
                           <input
                             className="form-control"
+                            type="number"
                             id="guest"
                             placeholder="1"
+                            min="1" 
+                            max="10"
                             value={guests}
                             onChange={(e) => setGuest(e.target.value)}
                           />
