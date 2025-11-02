@@ -1,5 +1,6 @@
-const userModel=require("../models/user.js")
+const userModel = require("../models/user.js")
 const bcrypt = require("bcryptjs")
+const authenticate = require("../middleware/auth-middleware.js")
 
 
 
@@ -17,7 +18,7 @@ const jwtSignup=async(req,res)=>{
             password,
             cpassword,
         })
-        //here password hashing
+        // pasword hashing
         await newUser.save()
        return  res.status(201).json({status:201,newUser})
      }catch(e){
@@ -85,6 +86,33 @@ const logout= async(req,res)=>{
    }
 }
 
+const changePassword = async(req,res)=>{ 
+    try{
+        // get logged in user from authenticate middleware
+        const user = req.user;
 
-module.exports={jwtLogin,jwtSignup,validuser,logout}
+        const {oldPassword, newPassword} = req.body;
+        
+       // check user enter password match  from old password
+       const isPasswordMatch  = await bcrypt.compare(oldPassword, user.password)
+       if(!isPasswordMatch){
+         res.status(400).json({success : false, message:"old password is not correct! Please try again"});
+       }
+
+       
+       // update user password  
+       user.password = newPassword
+
+       // before save to db - triggers Mongoose pre middleware that hash password
+       await user.save()
+        
+       res.status(200).json({success:true,message: "Password changed successfully" });
+    
+    }catch(e){
+         return res.status(500).json({success: false , message:"some error occurred!please try again"})
+    }
+}
+
+
+module.exports={jwtLogin,jwtSignup,validuser,logout,changePassword}
 
