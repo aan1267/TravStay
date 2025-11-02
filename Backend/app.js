@@ -4,25 +4,26 @@ require('dotenv').config()
 const connectDB=require("./config/dbconfig.js")
 const cors=require("cors")
 const cookieParser=require("cookie-parser")
+
 const port= process.env.PORT || 8080
 
 // const data=require("./data.js")
 
 //import routes
-const listingRoutes=require("./routes/listingRoutes.js")
-const userRoute = require("./routes/userRoutes.js")
-const imageRoute = require("./routes/imageRoute.js")
-const bookingsRoute=require("./routes/bookingsRoute.js")
+const listingRoutes=require("./routes/listing-routes.js")
+const userRoute = require("./routes/user-routes.js")
+const imageRoute = require("./routes/image-routes.js")
+const bookingsRoute=require("./routes/bookings-routes.js")
 
  const allowedOrigin = process.env.NODE_ENV === 'production' 
    ? [process.env.FRONTEND_URL_PROD]
   : [process.env.FRONTEND_URL_DEV]
 
 const corsOptions={
-  origin:"*", 
+  origin: allowedOrigin, 
   credentials: true,  
 }
-//middleware
+//third party middleware
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
