@@ -7,8 +7,8 @@ const BookingsSchema=new Schema({
     checkout:{type:Date,required:true},
     guests:{type:Number},
     price:Number,
-    user:{type:Schema.Types.ObjectId,required:true},
-    listingid:{type:Schema.Types.ObjectId,required:true,ref:"Listing"},
+    user:{type:Schema.Types.ObjectId, ref: "User", required:true},
+    listingid:{type:Schema.Types.ObjectId,ref:"Listing",required:true,},
 })
 
 const Bookings=mongoose.model("Booking",BookingsSchema)
