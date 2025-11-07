@@ -15,10 +15,12 @@ import PlacesForm from "./pages/PlacesForm.jsx";
 import ProtectedRoute from "./context/ProtectedRoute.jsx";
 import Booking from "./pages/BookingPage.jsx";
 import BookingsPage from "./pages/BookingsPage.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const isProduction = process.env.NODE_ENV === 'production';
-axios.defaults.baseURL= isProduction ? import.meta.env.VITE_API_BASE_URL : "http://localhost:8080/"
+axios.defaults.baseURL= isProduction ? import.meta.env.VITE_API_BASE_URL : "http://localhost:8080"
 axios.defaults.withCredentials=true
 
 
@@ -91,6 +93,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    {/* now toastify show on every page globally */}
+    <ToastContainer/>
     <RouterProvider router={router} />
   </React.StrictMode>
 );
