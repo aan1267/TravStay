@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext, Children } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import axios from "axios"
+import useToast from "../hooks/useToast"
 
 const AuthContext = createContext()
 
@@ -13,6 +14,7 @@ export const AuthProvider = () => {
   
  
   const navigate = useNavigate()
+  const {toastSuccess} = useToast()
    
  
   const verifyToken = async () => {
@@ -64,6 +66,7 @@ export const AuthProvider = () => {
       console.log("user logout")
       localStorage.removeItem("usersdatatoken")
       setIsAuthenticate(false)
+      toastSuccess("Logout Successfully")
       setUsername(null)
       navigate("/")
     } else {
