@@ -6,9 +6,8 @@ import * as Yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import axios from "axios"
 import {useNavigate} from "react-router-dom"
-import {ToastContainer,toast} from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css'
 import { useAuth } from "../context/AuthProvider"
+import useToast from "../hooks/useToast"
 
 function Login() {
   // const [email, setEmail] = useState("");
@@ -16,18 +15,11 @@ function Login() {
   const [loading,setLoading]=useState(false)
   const navigate=useNavigate()
   const {verifyToken}=useAuth()
+  const  {toastSuccess , toastError} = useToast()
 
-  const handleError=(err)=>{
-    toast.error(err,{
-      position:"top-right"
-    })
-  }
+ 
 
-  const handleSuccess=(msg)=>{
-    toast.success(msg,{
-       position:"top-right"
-    })
-  }
+ 
 
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
   const loginSchema= Yup.object().shape({
@@ -59,14 +51,14 @@ function Login() {
             localStorage.setItem("usersdatatoken",token)
             console.log(token)
             await verifyToken()
-            handleSuccess("Login Successfully")
+            toastSuccess("Login Successfully")
             setLoading(false)
             setTimeout(() => {
               navigate("/")
             },1000)
           }
         }else{
-          handleError("Login failed")
+          toastError("Login failed")
         }
      }catch(e){
       handleError("Login failed")
@@ -115,7 +107,7 @@ return (
           </form>
         </div>
         </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
 
   );
