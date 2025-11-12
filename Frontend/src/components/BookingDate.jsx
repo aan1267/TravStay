@@ -8,7 +8,7 @@ function BookingDate({ booking }) {
       {booking && (
         <div className="d-flex gap-2  text-normal flex-column flex-md-row">
           <div className="fs-6">
-            Number of Nights :{" "}
+            Number of Nights :
             {differenceInCalendarDays(
               new Date(booking.checkout),
               new Date(booking.checkin)
