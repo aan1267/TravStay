@@ -49,13 +49,7 @@ p a{
     outline:none;
 } 
 
-.Toastify__toast-container {
-    position: fixed !important;
-    top: 50% !important; /* vertically centered */
-    right: 0 !important; 
-    transform: translateY(-50%);
-    z-index: 9999 !important;  
-}
+
 
 
 
