@@ -3,7 +3,8 @@ const app=express()
 require('dotenv').config()
 const connectDB=require("./config/dbconfig.js")
 const cors=require("cors")
-const cookieParser=require("cookie-parser")
+// const cookieParser=require("cookie-parser")
+const  errorHandler = require("./middleware/errorHandler-middleware.js")
 
 const port= process.env.PORT || 8080
 
@@ -26,7 +27,6 @@ const corsOptions={
 //third party middleware
 app.use(cors(corsOptions))
 app.use(express.json())
-app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 // app.use("/uploads",express.static(__dirname+"/uploads"))
 
@@ -38,7 +38,11 @@ app.use("/bookings",bookingsRoute)
 
 
 
+
 connectDB()
+
+// error handling middleware
+app.use(errorHandler);
 
 // app.get("/",(req,res)=>{
 //     res.send("hello")
