@@ -1,46 +1,48 @@
 import React, { useState, useEffect } from "react";
-import { Navigate,useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import AccountNav from "../components/AccountNav";
 import DeleteIcon from "@mui/icons-material/Delete";
+import useToast from "../hooks/useToast";
 
-function PlacesForm({userCreatedListing,setCreatedListing}) {
+function PlacesForm({ userCreatedListing, setCreatedListing }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [country, setCountry] = useState("");
   const [price, setPrice] = useState("");
-  const [category,setSelectCategory]=useState("")
+  const [category, setSelectCategory] = useState("");
   const [addPhotos, setAddPhotos] = useState([]);
   const [photosLink, setPhotosLink] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { toastSuccess, toastError } = useToast();
 
   const categories = [
     "BeachFront",
-    "Rooms", 
-    "Iconic Cities", 
+    "Rooms",
+    "Iconic Cities",
     "Mountains",
     "Amazing Views",
     "Trending",
-     "Lake", 
-    "Domes", 
-    "Entire place", 
-   "Bed&BreakFast",
-  ]; 
-  {console.log("usercreatedlisting",userCreatedListing)}
-  
+    "Lake",
+    "Domes",
+    "Entire place",
+    "Bed&BreakFast",
+  ];
+  {
+    console.log("usercreatedlisting", userCreatedListing);
+  }
+
   useEffect(() => {
     const UserListingSingle = async () => {
       if (!id) {
         return;
       }
-      let { data } = await axios.get(
-        `/listing/userlisting/${id}`
-      );
+      let { data } = await axios.get(`/listing/userlisting/${id}`);
       console.log("img", data.userListing);
-      let { title, description, images, location, price, country,category } =
+      let { title, description, images, location, price, country, category } =
         data.userlisting;
       setTitle(title);
       setDescription(description);
@@ -48,7 +50,7 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
       setLocation(location);
       setPrice(price);
       setCountry(country);
-      setSelectCategory(category)
+      setSelectCategory(category);
     };
     UserListingSingle();
   }, [id]);
@@ -63,7 +65,7 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
       location: location,
       price: price,
       country: country,
-      category :category
+      category: category,
     };
     console.log(data);
     let token = localStorage.getItem("usersdatatoken");
@@ -110,40 +112,52 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
     e.preventDefault();
     setAddPhotos([...addPhotos.filter((photo) => photo !== link)]);
   };
- 
-  console.log("get",setCreatedListing)
-  const handleDeleteListing = async(id)=>{
-    await axios.delete(`/listing/userlisting/${id}`)
-    console.log(id)
-    const updatedListings= userCreatedListing?.filter(listing => listing.id !== id )
-    if(setCreatedListing){
-      setCreatedListing(updatedListings)
+
+  console.log("get", setCreatedListing);
+  const handleDeleteListing = async (id) => {
+    await axios.delete(`/listing/userlisting/${id}`);
+    console.log(id);
+    const updatedListings = userCreatedListing?.filter(
+      (listing) => listing.id !== id
+    );
+    if (setCreatedListing) {
+      setCreatedListing(updatedListings);
     }
     navigate("/account/places");
-  }
-  
- 
+  };
 
   const uploadPhotos = async (e) => {
+    // console.log(e.target.files)
     const files = e.target.files;
+    
+    if (addPhotos.length + files.length > 6) {
+      toastError(`You can upload maximum ${addPhotos.length} files`);
+      return;
+    }
     const data = new FormData();
     console.log({ files });
     for (let i = 0; i < files.length; i++) {
       data.append("photos", files[i]);
     }
-    const res = await axios.post(
-      "http://localhost:8080/api/upload-images",
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/upload-images",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      let fileUrl = res.data.uploadfiles.join("");
+      setAddPhotos((prev) => {
+        return [...prev, { url: fileUrl, caption: "" }];
+      });
+    } catch (err) {
+      if (err) {
+        toastError(err.response.data.msg);
       }
-    );
-    let fileUrl = res.data.uploadfiles.join("");
-    setAddPhotos((prev) => {
-      return [...prev, { url: fileUrl, caption: "" }];
-    });
+    }
   };
   return (
     <>
@@ -152,7 +166,9 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
         <form onSubmit={(e) => addNewListing(e)}>
           <div className="row mb-3">
             <div className="col-12">
-              <label htmlFor="title" class="form-label">Title</label>
+              <label htmlFor="title" class="form-label">
+                Title
+              </label>
               <input
                 type="text"
                 placeholder="title, for example: My lovely apt"
@@ -166,7 +182,9 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
 
           <div className="row mb-3">
             <div className="col-12">
-              <label htmlFor="description" class="form-label">Description</label>
+              <label htmlFor="description" class="form-label">
+                Description
+              </label>
               <textarea
                 rows="5"
                 cols="6"
@@ -180,7 +198,9 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
           </div>
 
           <div className="row">
-          <label htmlFor="photos" class="form-label">Photos</label>
+            <label htmlFor="photos" class="form-label">
+              Photos
+            </label>
             <div className="col-12 d-flex align-items-center">
               <div className="photos-link flex-grow-1">
                 <input
@@ -193,11 +213,12 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
                 />
               </div>
               <div className="photos-link">
-              <button className="p-1" onClick={addPhotosByLink}>add&nbsp;photo</button>
+                <button className="p-1" onClick={addPhotosByLink}>
+                  add&nbsp;photo
+                </button>
               </div>
             </div>
           </div>
-    
 
           <div className="row mb-3">
             <div className="col-12 p-2 d-flex flex-wrap align-items-center gap-3">
@@ -210,7 +231,7 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
                         onClick={(e) => handledeleteimages(e, link)}
                         className="btn btn-danger"
                       >
-                        <DeleteIcon/>
+                        <DeleteIcon />
                       </button>
                     </div>
                   </div>
@@ -219,6 +240,7 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
                 <input
                   type="file"
                   style={{ display: "none" }}
+                  multiple
                   onChange={uploadPhotos}
                 />
                 <i className="fa-solid fa-cloud-arrow-up"></i> Upload
@@ -228,7 +250,9 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
 
           <div className="row mb-3">
             <div className="col-md-6">
-              <label htmlFor="location" class="form-label">Location</label>
+              <label htmlFor="location" class="form-label">
+                Location
+              </label>
               <input
                 type="text"
                 placeholder="Pune, India"
@@ -239,7 +263,9 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
               />
             </div>
             <div className="col-md-6">
-              <label htmlFor="price" class="form-label">Price</label>
+              <label htmlFor="price" class="form-label">
+                Price
+              </label>
               <input
                 type="number"
                 placeholder="1200"
@@ -253,7 +279,9 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
 
           <div className="row mb-3">
             <div className="col-md-6">
-              <label htmlFor="country" class="form-label">Country</label>
+              <label htmlFor="country" class="form-label">
+                Country
+              </label>
               <input
                 type="text"
                 placeholder="India"
@@ -264,30 +292,34 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
               />
             </div>
             <div className="col-md-6">
-              <label htmlFor="Category" className="form-label">Category</label>
-              <select className="form-select border p-1 w-100" onChange={(e)=>setSelectCategory(e.target.value)}id="Category">
-              <option value="">{id ? category :"select category"}</option>
-              { categories.map((item,index)=>(
-                  <option key={index} value={item}>{item}</option>
-              ))}
+              <label htmlFor="Category" className="form-label">
+                Category
+              </label>
+              <select
+                className="form-select border p-1 w-100"
+                onChange={(e) => setSelectCategory(e.target.value)}
+                id="Category"
+              >
+                <option value="">{id ? category : "select category"}</option>
+                {categories.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
               </select>
               <h1>{console.log(category)}</h1>
             </div>
           </div>
 
-          <button
-            className="add-places-btn border-0 px-5 py-3"
-            type="submit"
-          >
+          <button className="add-places-btn border-0 px-5 py-3" type="submit">
             Submit
           </button>
-          
         </form>
         <button
-            className="add-places-btn border-0 px-5 py-3 mt-2"
-            onClick={()=>handleDeleteListing(id)}
-          >
-            Delete
+          className="add-places-btn border-0 px-5 py-3 mt-2"
+          onClick={() => handleDeleteListing(id)}
+        >
+          Delete
         </button>
       </div>
     </>
@@ -295,12 +327,3 @@ function PlacesForm({userCreatedListing,setCreatedListing}) {
 }
 
 export default PlacesForm;
-
-
-
-
-
-
-
-
-     
