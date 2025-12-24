@@ -18,7 +18,12 @@ export default function Navbar() {
   const { searchInput, setSearchInput } = useContext(SearchContext);
   const navigate = useNavigate();
 
-
+    // useEffect(()=>{
+  // if( window.location.pathname === "signup"){
+  //     setSearchInput("")
+  //     setIsOpen(false)
+  //   }
+  // },[window.location.pathname,setSearchInput])
 
   // !dropdownRef.current.contains(e.target))  detect click happen outside the dropdown
   const handleClickOutside = (e) => {

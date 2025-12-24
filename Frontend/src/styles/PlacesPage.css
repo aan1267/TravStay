@@ -77,7 +77,9 @@ text-decoration:none;
     }
 }
 
-
+/* div me input or button ko rakha then div kon padding width 100% input ko flex 1 diya jisse vo available space occupy kar lega 
+button kon padding  */
+/* flex-grow in bootstrap */
 
 
 

@@ -20,3 +20,7 @@ return {toastSuccess,toastError}
 }
 
 export default useToast
+
+// so best he react-toastify (by default global hota he just wrap in main.js
+// Har component me dobara wrap karne ki zarurat nahi.)
+// + custom hook (avoid repeat code )

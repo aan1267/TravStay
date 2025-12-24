@@ -84,10 +84,6 @@ const router = createBrowserRouter([
         ],
       },
     ],
-     // {
-    //   path: "/listing/:id/all-photos",
-   //   element: <AllImages />,
-   // },
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));

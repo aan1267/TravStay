@@ -54,23 +54,24 @@ export const AuthProvider = () => {
   }, [])
 
   const logout = async () => {
-    let token = localStorage.getItem('usersdatatoken')
-    const res = await axios.post("/jwt/logout",{},{
+    try{
+      let token = localStorage.getItem('usersdatatoken')
+      const res = await axios.post("/jwt/logout",{},{
       headers: {
         "content-type": "application/json",
         Authorization: token,
       },
-      withCredentials: true,
     })
-    if(res.status === 201) {
+    if(res.status === 200) {
       console.log("user logout")
       localStorage.removeItem("usersdatatoken")
       setIsAuthenticate(false)
       toastSuccess("Logout Successfully")
       setUsername(null)
       navigate("/")
-    } else {
-      console.log("error")
+    }
+    }catch(e){
+       console.error("Error during logout",e.message)
     }
   }
 

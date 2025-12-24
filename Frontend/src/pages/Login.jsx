@@ -97,7 +97,9 @@ return (
                 {...register("password")}
               />
                <p className="error">{errors.password?.message}</p>
+               
             </div>
+              
             <div>
               <button class="login-btn">{loading ? <span>Loading...</span> :<span>Login</span>}</button>
             </div>

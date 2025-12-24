@@ -6,7 +6,7 @@ import Spinner from "react-bootstrap/Spinner";
 function ProtectedRoute() {
   const { isAuthenticate, loading } = useAuth();
 
-  //  if(loading) return <div>Loading...</div>
+
   if (loading){
     return (
       <div
