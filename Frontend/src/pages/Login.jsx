@@ -24,12 +24,12 @@ function Login() {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
   const loginSchema= Yup.object().shape({
     email:Yup.string().required("please enter your email").matches(emailPattern,"enter valid email"),
-    password:Yup.string().max(6).required("password is required").matches(/[!@#$%^&*(),.?":{}|<>]/, 
+    password:Yup.string().min(6).required("password is required").matches(/[!@#$%^&*(),.?":{}|<>]/, 
       "Password must contain at least one special character"
     ),
   })
 
-  const {register,handleSubmit,formState:{errors}}=useForm({
+  const {register,handleSubmit,formState:{errors},reset}=useForm({
     resolver: yupResolver(loginSchema)
   })
   // const handleSubmit = (e) => {
@@ -61,9 +61,10 @@ function Login() {
           toastError("Login failed")
         }
      }catch(e){
-      handleError("Login failed")
+      toastError("Login failed")
       console.error("Login error",e)
       setLoading(false)
+      reset();
       }
     }
 
